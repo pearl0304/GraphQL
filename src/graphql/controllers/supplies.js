@@ -2,13 +2,8 @@ import chalk from "chalk";
 import { supplies } from "../database/data.js";
 
 const supplyController = {
-    getSupplies: async() => {
-        try {
-            return supplies;
-
-        } catch(e) {
-            console.log(chalk.red(e))
-        }
+    getSupplies:() => {
+        return supplies;
     },
 
     insertSupply: async (args) => {

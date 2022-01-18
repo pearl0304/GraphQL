@@ -3,12 +3,8 @@ import {equipments} from "../database/data.js"
 import { people } from "../database/data.js";
 
 const equipmentController = {
-    getEquipment: async ()=> {
-        try {
-            return equipments;
-        }catch(e){
-            console.log(chalk.red(e));
-        }
+    getEquipment:()=> {   
+        return equipments;        
     },
     insertEquipment: async (args)=>{
         try {

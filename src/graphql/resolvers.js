@@ -12,6 +12,12 @@ const resolvers = {
         getEquipmentAdvs: ()=> equipmentController.getEquipmentAdvs(),
         
         getSupplies: () => supplyController.getSupplies(), 
+
+        givens: ()=> {
+            const equipmentData = equipmentController.getEquipment()
+            const supplyData = supplyController.getSupplies()
+            return [...equipmentData, ...supplyData]
+        }
     },
 
     Mutation: {
@@ -22,6 +28,20 @@ const resolvers = {
         insertSupply: (_,args)=> supplyController.insertSupply(args),
         deleteSupplies: (_,{id})=> supplyController.deleteSupplies(id),
         updateSupply: (_,args)=> supplyController.updateSupply(args)
+    },
+    Given: {
+        __resolveType(given, context, info) {
+            if (given.used_by) return 'Equipment'
+            if (given.team) return 'Supply'
+            return null
+        }
+    },
+    Tool: {
+        __resolveType(tool, context, info) {
+            if(tool.developed_by) { return 'Software' }
+            if(tool.new_or_used) { return 'Equipment'}
+            return null
+        }
     }
 };
 
