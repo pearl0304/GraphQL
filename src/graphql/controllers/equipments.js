@@ -1,5 +1,6 @@
 import chalk from "chalk";
 import {equipments} from "../database/data.js"
+import { people } from "../database/data.js";
 
 const equipmentController = {
     getEquipment: async ()=> {
@@ -45,12 +46,19 @@ const equipmentController = {
     },
     getEquipmentAdvs: async() =>{
         try {
-            console.log(chalk.blue('ddddd'))
             const reuslt = equipments.map((equipment)=>{
                 if (equipment.used_by === 'developer') {
                     equipment.use_rate = Math.random().toFixed(2)
                 }
                 equipment.is_new = equipment.new_or_used === 'new'
+                if (Math.random() > 0.5) {
+                    equipment.users = []
+                    people.forEach((person)=>{
+                        if(person.role === equipment.used_by && Math.random() < 0.2 ) {
+                            equipment.users.push(person.last_name)
+                        } 
+                    })
+                }
                 return equipment
             })
             return reuslt

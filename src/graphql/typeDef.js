@@ -13,22 +13,33 @@ const typeDefs = gql`
     }
     type Equipment {
         id: String,
-        used_by: String,
+        used_by: Role!,
         count: Int,
-        new_or_used: String   
+        new_or_used: NewOrUsed!   
     }
     type EquipmentAdv{
         id: ID!,
-        used_by: String!,
+        used_by: Role!,
         count: Int!,
         use_rate: Float,
-        is_new: Boolean!
+        is_new: Boolean!,
+        users: [String!]
     }
     type Supply {
         id: String,
         team: Int,
     }
 
+    enum Role {
+        developer,
+        designer,
+        planner
+    }
+
+    enum NewOrUsed {
+        new,
+        used
+    }
 
     type Query {
         getTeams: [Team],
